@@ -25,20 +25,30 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate {
         setContentView(R.layout.activity_add_cities)
 
         initialize()
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.getCities("Ma")
+        setListeners()
     }
 
     private fun initialize() {
         viewModel.delegate = this
 
+        searchCity.setIconifiedByDefault(false)
+
         listCities.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         listCities.adapter = citiesAdapter
+    }
+
+    private fun setListeners() {
+        searchCity.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+               return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewModel.getCities(newText ?: "")
+                return true
+            }
+        })
     }
 
     // AddCitiesViewModelDelegate

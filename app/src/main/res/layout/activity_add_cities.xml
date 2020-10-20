@@ -22,10 +22,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
+        android:id="@+id/searchCity"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
+        app:queryHint="@string/search_city_placeholder"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:background="@color/gray_100"
@@ -37,12 +38,10 @@
         android:id="@+id/listCities"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search" />
+        app:layout_constraintTop_toBottomOf="@+id/searchCity" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
