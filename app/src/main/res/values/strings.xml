@@ -3,4 +3,5 @@
     <string name="no_cities_title">Hola, \nBienvenido!</string>
     <string name="no_cities_subtitle">¿Qué te parece si agregamos una nueva ciudad?</string>
     <string name="no_cities_add_button">Agregar ciudad</string>
+    <string name="add_cities_title">Agregar ciudad</string>
 </resources>
