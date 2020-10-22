@@ -1,19 +1,18 @@
 package com.lagunadev.mycitiesweather.scenes.addCities
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.repository.GetCitiesRepository
+import com.lagunadev.mycitiesweather.repository.db.CitiesWeatherRoomDatabase
 import com.lagunadev.mycitiesweather.repository.services.GetCitiesServiceImpl
 import com.lagunadev.mycitiesweather.repository.services.MetaweatherService
 import retrofit2.Response
 
-interface AddCitiesViewModelDelegate {
-    fun onUpdateCities(cities: List<City>)
-}
+class AddCitiesViewModel(private val context: Application) : ViewModel() {
 
-class AddCitiesViewModel : ViewModel() {
-
-    private val citiesRepositoryRepository: GetCitiesRepository = GetCitiesServiceImpl()
+    private val citiesRepository: GetCitiesRepository = GetCitiesServiceImpl()
+    private val citiesLocalRepository = CitiesWeatherRoomDatabase.getInstance(context).citiesDao()
     private var cities = listOf<City>()
         set(value) {
             field = value
@@ -23,7 +22,7 @@ class AddCitiesViewModel : ViewModel() {
     var delegate: AddCitiesViewModelDelegate? = null
 
     fun getCities(name: String) {
-        citiesRepositoryRepository.getCities(
+        citiesRepository.getCities(
             name,
             object : MetaweatherService.CallbackResponse<List<City>> {
 
@@ -35,5 +34,9 @@ class AddCitiesViewModel : ViewModel() {
                     TODO("Not yet implemented")
                 }
             })
+    }
+
+    fun addCity(city: City) {
+        citiesLocalRepository.insertCity(city)
     }
 }

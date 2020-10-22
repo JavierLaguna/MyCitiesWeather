@@ -1,10 +1,14 @@
 package com.lagunadev.mycitiesweather.models
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
+@Entity(tableName = "cities_table")
 data class City(
 
+    @PrimaryKey
     @field:SerializedName("woeid")
     val id: Int? = null,
 

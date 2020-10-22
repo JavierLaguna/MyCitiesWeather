@@ -12,7 +12,7 @@ class CustomViewModelFactory(private val application: Application) :
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return with(modelClass) {
             when {
-                isAssignableFrom(AddCitiesViewModel::class.java) -> AddCitiesViewModel()
+                isAssignableFrom(AddCitiesViewModel::class.java) -> AddCitiesViewModel(application)
                 else -> throw IllegalArgumentException("Unknown ViewModel")
             }
         } as T

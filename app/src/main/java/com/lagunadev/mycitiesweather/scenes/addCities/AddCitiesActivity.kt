@@ -9,14 +9,14 @@ import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_add_cities.*
 
-class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate {
+class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCityItemDelegate {
 
     private val viewModel: AddCitiesViewModel by lazy {
         val factory = CustomViewModelFactory(application)
         ViewModelProvider(this, factory).get(AddCitiesViewModel::class.java)
     }
     private val citiesAdapter: AddCitiesAdapter by lazy {
-        val adapter = AddCitiesAdapter()
+        val adapter = AddCitiesAdapter(this)
         adapter
     }
 
@@ -54,5 +54,10 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate {
     // AddCitiesViewModelDelegate
     override fun onUpdateCities(cities: List<City>) {
         citiesAdapter.setCities(cities)
+    }
+
+    // AddCityItemDelegate
+    override fun onTapAddCity(city: City) {
+       viewModel.addCity(city)
     }
 }

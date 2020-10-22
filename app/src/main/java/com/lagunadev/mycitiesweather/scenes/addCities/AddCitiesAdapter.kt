@@ -8,7 +8,8 @@ import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.utils.inflate
 import kotlinx.android.synthetic.main.item_add_city.view.*
 
-class AddCitiesAdapter : RecyclerView.Adapter<AddCitiesAdapter.AddCityHolder>() {
+class AddCitiesAdapter(private val addCityItemDelegate: AddCityItemDelegate? = null) :
+    RecyclerView.Adapter<AddCitiesAdapter.AddCityHolder>() {
 
     private val cities = mutableListOf<City>()
 
@@ -42,6 +43,10 @@ class AddCitiesAdapter : RecyclerView.Adapter<AddCitiesAdapter.AddCityHolder>() 
     override fun onBindViewHolder(holder: AddCityHolder, position: Int) {
         cities.get(position).let { city ->
             holder.city = city
+
+            holder.itemView.buttonAddCity.setOnClickListener {
+                addCityItemDelegate?.onTapAddCity(city)
+            }
         }
     }
 }
