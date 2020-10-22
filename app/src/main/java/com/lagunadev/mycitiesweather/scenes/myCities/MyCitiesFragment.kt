@@ -1,5 +1,6 @@
 package com.lagunadev.mycitiesweather.scenes.myCities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
+import com.lagunadev.mycitiesweather.scenes.addCities.AddCitiesActivity
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_my_cities.*
 
@@ -35,6 +37,7 @@ class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate, MyCityItemDelega
         super.onViewCreated(view, savedInstanceState)
 
         initialize()
+        setListeners()
     }
 
     private fun initialize() {
@@ -44,6 +47,16 @@ class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate, MyCityItemDelega
         listMyCities.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         listMyCities.adapter = citiesAdapter
+    }
+
+    private fun setListeners() {
+        buttonAddNewCity.setOnClickListener { goToAddCities() }
+    }
+
+    private fun goToAddCities() {
+        Intent(activity, AddCitiesActivity::class.java).apply {
+            startActivity(this)
+        }
     }
 
     // MyCitiesViewModelDelegate
