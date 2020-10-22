@@ -12,14 +12,14 @@ import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_my_cities.*
 
-class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate {
+class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate, MyCityItemDelegate {
 
     private val viewModel: MyCitiesViewModel by lazy {
         val factory = CustomViewModelFactory(activity!!.application, this)
         ViewModelProvider(this, factory).get(MyCitiesViewModel::class.java)
     }
     private val citiesAdapter: MyCitiesAdapter by lazy {
-        val adapter = MyCitiesAdapter()
+        val adapter = MyCitiesAdapter(this)
         adapter
     }
 
@@ -49,5 +49,10 @@ class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate {
     // MyCitiesViewModelDelegate
     override fun onUpdateCities(cities: List<City>) {
         citiesAdapter.setCities(cities)
+    }
+
+    // MyCityItemDelegate
+    override fun onTapDeleteCity(city: City) {
+        viewModel.deleteCity(city)
     }
 }

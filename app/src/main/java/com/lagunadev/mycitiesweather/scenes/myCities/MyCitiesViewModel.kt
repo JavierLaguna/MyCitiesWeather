@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.repository.db.CitiesWeatherRoomDatabase
 
 class MyCitiesViewModel(private val context: Application, private val owner: LifecycleOwner) :
@@ -15,6 +16,10 @@ class MyCitiesViewModel(private val context: Application, private val owner: Lif
 
     fun initialize() {
         getMyCities()
+    }
+
+    fun deleteCity(city: City) {
+        myCitiesRepository.deleteCity(city)
     }
 
     private fun getMyCities() {

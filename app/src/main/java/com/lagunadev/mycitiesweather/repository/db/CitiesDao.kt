@@ -12,4 +12,7 @@ abstract class CitiesDao {
 
     @Query("SELECT * FROM cities_table")
     abstract fun getAllCities(): LiveData<List<City>>
+
+    @Delete
+    abstract fun deleteCity(city: City)
 }
