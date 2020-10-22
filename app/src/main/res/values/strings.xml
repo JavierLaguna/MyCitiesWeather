@@ -5,4 +5,7 @@
     <string name="no_cities_add_button">Agregar ciudad</string>
     <string name="add_cities_title">Agregar ciudad</string>
     <string name="search_city_placeholder">Buscar ciudad</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_cities_title">Mis ciudades</string>
 </resources>

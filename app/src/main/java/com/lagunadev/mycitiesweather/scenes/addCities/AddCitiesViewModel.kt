@@ -12,7 +12,7 @@ import retrofit2.Response
 class AddCitiesViewModel(private val context: Application) : ViewModel() {
 
     private val citiesRepository: GetCitiesRepository = GetCitiesServiceImpl()
-    private val citiesLocalRepository = CitiesWeatherRoomDatabase.getInstance(context).citiesDao()
+    private val myCitiesRepository = CitiesWeatherRoomDatabase.getInstance(context).citiesDao()
     private var cities = listOf<City>()
         set(value) {
             field = value
@@ -37,6 +37,7 @@ class AddCitiesViewModel(private val context: Application) : ViewModel() {
     }
 
     fun addCity(city: City) {
-        citiesLocalRepository.insertCity(city)
+        myCitiesRepository.insertCity(city)
+        delegate?.cityDidAdded()
     }
 }

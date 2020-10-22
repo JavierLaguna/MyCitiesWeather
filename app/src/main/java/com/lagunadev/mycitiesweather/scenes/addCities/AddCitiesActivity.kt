@@ -1,18 +1,21 @@
 package com.lagunadev.mycitiesweather.scenes.addCities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
+import com.lagunadev.mycitiesweather.scenes.main.MainActivity
+import com.lagunadev.mycitiesweather.scenes.noCities.NoCitiesFragment
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_add_cities.*
 
 class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCityItemDelegate {
 
     private val viewModel: AddCitiesViewModel by lazy {
-        val factory = CustomViewModelFactory(application)
+        val factory = CustomViewModelFactory(application, this)
         ViewModelProvider(this, factory).get(AddCitiesViewModel::class.java)
     }
     private val citiesAdapter: AddCitiesAdapter by lazy {
@@ -39,9 +42,10 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCi
     }
 
     private fun setListeners() {
-        searchCity.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        searchCity.setOnQueryTextListener(object :
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-               return false
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -56,8 +60,12 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCi
         citiesAdapter.setCities(cities)
     }
 
+    override fun cityDidAdded() {
+        finish()
+    }
+
     // AddCityItemDelegate
     override fun onTapAddCity(city: City) {
-       viewModel.addCity(city)
+        viewModel.addCity(city)
     }
 }
