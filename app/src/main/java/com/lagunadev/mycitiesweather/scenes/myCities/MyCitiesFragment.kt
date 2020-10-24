@@ -62,6 +62,8 @@ class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate, MyCityItemDelega
 
     private fun goToCityWeather(city: City) {
         Intent(activity, CityWeatherActivity::class.java).apply {
+            putExtra(CityWeatherActivity.CITY_OBJECT, city)
+
             startActivity(this)
         }
     }

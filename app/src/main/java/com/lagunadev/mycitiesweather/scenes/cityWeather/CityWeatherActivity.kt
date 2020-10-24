@@ -1,25 +1,78 @@
 package com.lagunadev.mycitiesweather.scenes.cityWeather
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.lagunadev.mycitiesweather.R
+import com.lagunadev.mycitiesweather.models.City
+import com.lagunadev.mycitiesweather.models.WeatherItem
+import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
+import kotlinx.android.synthetic.main.activity_city_weather.*
+import java.text.SimpleDateFormat
 
-class CityWeatherActivity : AppCompatActivity() {
+class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
+
+    companion object {
+        const val CITY_OBJECT = "CITY_OBJECT"
+    }
+
+    private lateinit var city: City
+    private val viewModel: CityWeatherViewModel by lazy {
+        val factory = CustomViewModelFactory(application, this)
+        ViewModelProvider(this, factory).get(CityWeatherViewModel::class.java)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initialize()
+        getIntentArguments()
     }
 
     private fun initialize() {
         setContentView(R.layout.activity_city_weather)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.cityToolbar))
 
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
+
+        viewModel.delegate = this
     }
+
+    private fun getIntentArguments() {
+        intent?.let {
+            city = it.getSerializableExtra(CityWeatherActivity.CITY_OBJECT) as City
+            viewModel.initialize(city)
+            setCityData()
+        } ?: finish()
+    }
+
+    private fun setCityData() {
+        this.supportActionBar?.title = city.title
+    }
+
+    // CityWeatherViewModelDelegate
+    override fun updateTodayWeather(weather: WeatherItem) {
+        val resources: Resources = this.getResources()
+        val resourceId: Int = resources.getIdentifier(
+            "background_${weather.weatherStateAbbr}", "drawable",
+            this.getPackageName()
+        )
+        imageCurrentWeather.setImageResource(resourceId)
+
+
+        labelTemp.text = "${weather?.theTemp?.toInt().toString()}º"
+        labelState.text = weather.weatherStateName
+
+        val format = SimpleDateFormat("yyyy-MM-dd")
+        val dateFormat = SimpleDateFormat("EEEE, d MMM yyyy")
+        val date = format.parse(weather.applicableDate)
+        labelDate.text = dateFormat.format(date)
+    }
+
 }
