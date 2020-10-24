@@ -11,6 +11,7 @@ import com.lagunadev.mycitiesweather.models.WeatherItem
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_city_weather.*
 import java.text.SimpleDateFormat
+import kotlin.math.roundToLong
 
 class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
@@ -63,16 +64,25 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
             "background_${weather.weatherStateAbbr}", "drawable",
             this.getPackageName()
         )
-        imageCurrentWeather.setImageResource(resourceId)
+
+        with(weather) {
+            imageCurrentWeather.setImageResource(resourceId)
 
 
-        labelTemp.text = "${weather?.theTemp?.toInt().toString()}º"
-        labelState.text = weather.weatherStateName
+            labelTemp.text = "${"%.1f".format(theTemp)}º"
+            labelState.text = weather.weatherStateName
 
-        val format = SimpleDateFormat("yyyy-MM-dd")
-        val dateFormat = SimpleDateFormat("EEEE, d MMM yyyy")
-        val date = format.parse(weather.applicableDate)
-        labelDate.text = dateFormat.format(date)
+            val format = SimpleDateFormat("yyyy-MM-dd")
+            val dateFormat = SimpleDateFormat("EEEE, d MMM yyyy")
+            val date = format.parse(applicableDate)
+            labelDate.text = dateFormat.format(date)
+
+            labelWind.text = "${"%.2f".format(windSpeed)} mph"
+            labelAirPreassure.text = "$airPressure mbar"
+            labelHumidity.text = "$humidity %"
+            labelTempMin.text = "${"%.1f".format(minTemp)}º"
+            labelTempMax.text = "${"%.1f".format(maxTemp)}º"
+        }
     }
 
 }

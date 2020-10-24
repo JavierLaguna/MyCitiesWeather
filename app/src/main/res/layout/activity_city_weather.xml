@@ -78,6 +78,194 @@
                     android:textSize="16sp"
                     android:textStyle="bold"
                     tools:text="Sat, 24 Oct 2020" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="54dp"
+                    android:layout_marginEnd="32dp">
+
+                    <TextView
+                        android:id="@+id/labelWindTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/weather_wind"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/labelAirPreassureTitle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelAirPreassureTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/weather_air_preassure"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/labelHumidityTitle"
+                        app:layout_constraintStart_toEndOf="@id/labelWindTitle"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelHumidityTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/weather_humidity"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/labelAirPreassureTitle"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/labelWind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/labelWindTitle"
+                        app:layout_constraintStart_toStartOf="@+id/labelWindTitle"
+                        app:layout_constraintTop_toBottomOf="@id/labelWindTitle"
+                        tools:text="4.73 mph" />
+
+                    <TextView
+                        android:id="@+id/labelAirPreassure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/labelAirPreassureTitle"
+                        app:layout_constraintStart_toStartOf="@+id/labelAirPreassureTitle"
+                        app:layout_constraintTop_toBottomOf="@id/labelAirPreassureTitle"
+                        tools:text="1024.50 mbar" />
+
+                    <TextView
+                        android:id="@+id/labelHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="@+id/labelHumidityTitle"
+                        app:layout_constraintStart_toStartOf="@+id/labelHumidityTitle"
+                        app:layout_constraintTop_toBottomOf="@id/labelHumidityTitle"
+                        tools:text="72%" />
+
+                    <TextView
+                        android:id="@+id/labelTempMinTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/weather_temp_min"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/labelTempMaxTitle"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/labelWind" />
+
+                    <TextView
+                        android:id="@+id/labelTempMaxTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:text="@string/weather_temp_max"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/labelTempMinTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/labelWind" />
+
+                    <TextView
+                        android:id="@+id/labelTempMin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/labelTempMinTitle"
+                        app:layout_constraintStart_toStartOf="@+id/labelTempMinTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/labelTempMinTitle"
+                        tools:text="18.9º" />
+
+                    <TextView
+                        android:id="@+id/labelTempMax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/labelTempMaxTitle"
+                        app:layout_constraintStart_toStartOf="@+id/labelTempMaxTitle"
+                        app:layout_constraintTop_toBottomOf="@+id/labelTempMaxTitle"
+                        tools:text="18.9º" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar

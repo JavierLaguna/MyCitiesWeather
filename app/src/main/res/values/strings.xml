@@ -8,4 +8,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_cities_title">Mis ciudades</string>
+    <string name="weather_wind">Viento</string>
+    <string name="weather_air_preassure">Presión de aire</string>
+    <string name="weather_humidity">Humedad</string>
+    <string name="weather_temp_min">Temp Min</string>
+    <string name="weather_temp_max">Temp Max</string>
 </resources>

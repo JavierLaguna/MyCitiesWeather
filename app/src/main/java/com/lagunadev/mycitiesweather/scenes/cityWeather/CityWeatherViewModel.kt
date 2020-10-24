@@ -36,7 +36,7 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
     }
 
     private fun listenCityWeather() {
-        getCityWeather(city)
+//        getCityWeather(city) TODO
 
         city.id?.let { cityId ->
             myCitiesWeatherRepository.getCityWeatherOf(cityId)
@@ -79,6 +79,5 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                 }
             }
         }
-
     }
 }
