@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.scenes.addCities.AddCitiesActivity
+import com.lagunadev.mycitiesweather.scenes.cityWeather.CityWeatherActivity
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.fragment_my_cities.*
 
@@ -59,12 +60,22 @@ class MyCitiesFragment : Fragment(), MyCitiesViewModelDelegate, MyCityItemDelega
         }
     }
 
+    private fun goToCityWeather(city: City) {
+        Intent(activity, CityWeatherActivity::class.java).apply {
+            startActivity(this)
+        }
+    }
+
     // MyCitiesViewModelDelegate
     override fun onUpdateCities(cities: List<City>) {
         citiesAdapter.setCities(cities)
     }
 
     // MyCityItemDelegate
+    override fun onSelectCity(city: City) {
+        goToCityWeather(city)
+    }
+
     override fun onTapDeleteCity(city: City) {
         viewModel.deleteCity(city)
     }

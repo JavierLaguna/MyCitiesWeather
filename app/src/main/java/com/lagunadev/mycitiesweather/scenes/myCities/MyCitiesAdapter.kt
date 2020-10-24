@@ -46,9 +46,8 @@ class MyCitiesAdapter(
         cities.get(position).let { city ->
             holder.city = city
 
-            holder.itemView.buttonDeleteCity.setOnClickListener {
-                myCityItemDelegate?.onTapDeleteCity(city)
-            }
+            holder.itemView.setOnClickListener { myCityItemDelegate?.onSelectCity(city) }
+            holder.itemView.buttonDeleteCity.setOnClickListener { myCityItemDelegate?.onTapDeleteCity(city) }
         }
     }
 }
