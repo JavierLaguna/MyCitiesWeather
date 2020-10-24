@@ -27,6 +27,11 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
             field = value
             value?.let { delegate?.updateTodayWeather(it) }
         }
+    private var nextDaysWeather: List<WeatherItem>? = null
+        set(value) {
+            field = value
+            value?.let { delegate?.updateNextDaysWeather(it) }
+        }
 
     var delegate: CityWeatherViewModelDelegate? = null
 
@@ -43,6 +48,7 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                 .observe(owner, Observer { cityWeather ->
                     if (cityWeather != null) {
                         todayWeather = cityWeather.todayWeather
+                        nextDaysWeather = cityWeather.nextDaysWeather
                     }
                 })
         }

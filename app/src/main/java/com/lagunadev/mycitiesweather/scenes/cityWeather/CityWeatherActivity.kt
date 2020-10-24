@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.models.WeatherItem
+import com.lagunadev.mycitiesweather.scenes.weatherList.WeatherListFragment
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_city_weather.*
 import java.text.SimpleDateFormat
-import kotlin.math.roundToLong
 
 class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
@@ -19,6 +19,7 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
         const val CITY_OBJECT = "CITY_OBJECT"
     }
 
+    private val weatherListFragment = WeatherListFragment()
     private lateinit var city: City
     private val viewModel: CityWeatherViewModel by lazy {
         val factory = CustomViewModelFactory(application, this)
@@ -30,6 +31,7 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
         initialize()
         getIntentArguments()
+        addListWeathers()
     }
 
     private fun initialize() {
@@ -55,6 +57,12 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
     private fun setCityData() {
         this.supportActionBar?.title = city.title
+    }
+
+    private fun addListWeathers() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.weatherListContainer, weatherListFragment)
+            .commitNow()
     }
 
     // CityWeatherViewModelDelegate
@@ -85,4 +93,7 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
         }
     }
 
+    override fun updateNextDaysWeather(weathers: List<WeatherItem>) {
+        weatherListFragment.setWeather(weathers)
+    }
 }

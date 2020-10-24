@@ -13,4 +13,5 @@
     <string name="weather_humidity">Humedad</string>
     <string name="weather_temp_min">Temp Min</string>
     <string name="weather_temp_max">Temp Max</string>
+    <string name="weather_next_days">Pronóstico siguientes 6 días</string>
 </resources>
