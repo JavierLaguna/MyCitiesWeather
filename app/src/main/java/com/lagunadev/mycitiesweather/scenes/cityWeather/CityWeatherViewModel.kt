@@ -2,8 +2,10 @@ package com.lagunadev.mycitiesweather.scenes.cityWeather
 
 import android.app.Application
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.lagunadev.mycitiesweather.models.City
+import com.lagunadev.mycitiesweather.models.CityWeather
 import com.lagunadev.mycitiesweather.models.CityWeatherResponse
 import com.lagunadev.mycitiesweather.models.WeatherItem
 import com.lagunadev.mycitiesweather.repository.GetWeatherRepository
@@ -16,7 +18,8 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
     ViewModel() {
 
     private val weatherRepository: GetWeatherRepository = GetWeatherServiceImpl()
-    private val myCitiesRepository = CitiesWeatherRoomDatabase.getInstance(context).citiesDao()
+    private val myCitiesWeatherRepository =
+        CitiesWeatherRoomDatabase.getInstance(context).citiesWeatherDao()
 
     private lateinit var city: City
     private var todayWeather: WeatherItem? = null
@@ -29,7 +32,20 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
 
     fun initialize(city: City) {
         this.city = city
+        listenCityWeather()
+    }
+
+    private fun listenCityWeather() {
         getCityWeather(city)
+
+        city.id?.let { cityId ->
+            myCitiesWeatherRepository.getCityWeatherOf(cityId)
+                .observe(owner, Observer { cityWeather ->
+                    if (cityWeather != null) {
+                        todayWeather = cityWeather.todayWeather
+                    }
+                })
+        }
     }
 
     private fun getCityWeather(city: City) {
@@ -40,7 +56,7 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                 object : MetaweatherService.CallbackResponse<CityWeatherResponse> {
 
                     override fun onResponse(response: CityWeatherResponse) {
-                        todayWeather = response.consolidatedWeather?.first()
+                        saveCityWeather(response)
                     }
 
                     override fun onFailure(t: Throwable, res: Response<*>?) {
@@ -48,5 +64,21 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                     }
                 })
         }
+    }
+
+    private fun saveCityWeather(cityWeatherResponse: CityWeatherResponse) {
+        cityWeatherResponse.consolidatedWeather?.first()?.let { todayWeather ->
+            val nextDaysWeather =
+                cityWeatherResponse.consolidatedWeather.filter { it?.id !== todayWeather.id }
+                    .filterNotNull()
+
+            city.id?.let { cityId ->
+                nextDaysWeather.let { nextDaysWeather ->
+                    val cityWeather = CityWeather(cityId, todayWeather, nextDaysWeather)
+                    myCitiesWeatherRepository.insertCityWeather(cityWeather)
+                }
+            }
+        }
+
     }
 }

@@ -5,6 +5,9 @@ import java.io.Serializable
 
 data class WeatherItem(
 
+    @field:SerializedName("id")
+    val id: Long? = null,
+
     @field:SerializedName("visibility")
     val visibility: Double? = null,
 
@@ -40,9 +43,6 @@ data class WeatherItem(
 
     @field:SerializedName("wind_speed")
     val windSpeed: Double? = null,
-
-    @field:SerializedName("id")
-    val id: Long? = null,
 
     @field:SerializedName("max_temp")
     val maxTemp: Double? = null,
