@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
@@ -73,16 +74,13 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
     // CityWeatherViewModelDelegate
     override fun updateTodayWeather(weather: WeatherItem) {
-        val resources: Resources = this.getResources()
         val resourceId: Int = resources.getIdentifier(
-            "background_${weather.weatherStateAbbr}", "drawable",
-            this.getPackageName()
+            "background_${weather.weatherStateAbbr}", "drawable", packageName
         )
 
+        Glide.with(applicationContext).load(resourceId).into(imageCurrentWeather)
+
         with(weather) {
-            imageCurrentWeather.setImageResource(resourceId)
-
-
             labelTemp.text = "${"%.1f".format(theTemp)}º"
             labelState.text = weather.weatherStateName
 
