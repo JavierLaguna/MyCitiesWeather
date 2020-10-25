@@ -241,7 +241,6 @@
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/labelTempMinTitle"
                         app:layout_constraintStart_toStartOf="@+id/labelTempMinTitle"
                         app:layout_constraintTop_toBottomOf="@+id/labelTempMinTitle"
@@ -251,7 +250,6 @@
                         android:id="@+id/labelTempMax"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
                         android:shadowColor="@color/text"
                         android:shadowDx="1"
                         android:shadowDy="1"
@@ -260,11 +258,25 @@
                         android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/labelTempMaxTitle"
                         app:layout_constraintStart_toStartOf="@+id/labelTempMaxTitle"
-                        app:layout_constraintTop_toBottomOf="@+id/labelTempMaxTitle"
+                        app:layout_constraintTop_toTopOf="@+id/labelTempMin"
                         tools:text="18.9º" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/imageArrow"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="56dp"
+                        android:shadowColor="@color/text"
+                        android:shadowDx="1"
+                        android:shadowDy="1"
+                        android:shadowRadius="1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/labelTempMin"
+                        app:srcCompat="@drawable/ic_up_arrow" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
