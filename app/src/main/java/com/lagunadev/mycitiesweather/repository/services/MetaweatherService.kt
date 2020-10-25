@@ -1,5 +1,6 @@
 package com.lagunadev.mycitiesweather.repository.services
 
+import com.lagunadev.mycitiesweather.BuildConfig
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -27,7 +28,7 @@ class MetaweatherService {
         val retrofit = Retrofit.Builder()
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl("https://www.metaweather.com/") // TODO: MOVE TO BUILD VARIANTS
+            .baseUrl(BuildConfig.WeatherApiDomain)
             .build()
 
         metaweatherApi = retrofit.create(MetaweatherApi::class.java)
