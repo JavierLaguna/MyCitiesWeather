@@ -81,7 +81,7 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                     }
 
                     override fun onFailure(t: Throwable, res: Response<*>?) {
-                        TODO("Not yet implemented")
+                        delegate?.showError()
                     }
                 })
         }

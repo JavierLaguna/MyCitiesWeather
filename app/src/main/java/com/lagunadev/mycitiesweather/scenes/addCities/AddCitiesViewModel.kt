@@ -31,7 +31,7 @@ class AddCitiesViewModel(private val context: Application) : ViewModel() {
                 }
 
                 override fun onFailure(t: Throwable, res: Response<*>?) {
-                    TODO("Not yet implemented")
+                    delegate?.showError()
                 }
             })
     }

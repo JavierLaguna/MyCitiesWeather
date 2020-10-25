@@ -1,11 +1,10 @@
 <resources>
-    <string name="app_name">MyCitiesWeather</string>
+    <string name="app_name">My Cities Weather</string>
     <string name="no_cities_title">Hola, \nBienvenido!</string>
     <string name="no_cities_subtitle">¿Qué te parece si agregamos una nueva ciudad?</string>
     <string name="no_cities_add_button">Agregar ciudad</string>
     <string name="add_cities_title">Agregar ciudad</string>
     <string name="search_city_placeholder">Buscar ciudad</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_cities_title">Mis ciudades</string>
     <string name="weather_wind">Viento</string>
@@ -14,4 +13,5 @@
     <string name="weather_temp_min">Temp Min</string>
     <string name="weather_temp_max">Temp Max</string>
     <string name="weather_next_days">Pronóstico siguientes 6 días</string>
+    <string name="error_default">Ups! Algo ha ido mal, prueba de nuevo en unos segundos.</string>
 </resources>

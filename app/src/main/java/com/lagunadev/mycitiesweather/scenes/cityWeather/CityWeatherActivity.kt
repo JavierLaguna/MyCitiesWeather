@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.models.WeatherItem
@@ -100,5 +101,9 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
     override fun updateNextDaysWeather(weathers: List<WeatherItem>) {
         weatherListFragment.setWeather(weathers)
+    }
+
+    override fun showError() {
+        Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_SHORT).show()
     }
 }

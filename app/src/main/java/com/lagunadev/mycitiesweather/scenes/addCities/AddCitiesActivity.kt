@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.scenes.main.MainActivity
@@ -62,6 +63,10 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCi
 
     override fun cityDidAdded() {
         finish()
+    }
+
+    override fun showError() {
+        Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_SHORT).show()
     }
 
     // AddCityItemDelegate

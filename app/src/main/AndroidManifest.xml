@@ -14,15 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyCitiesWeather">
 
-        <activity android:name=".scenes.main.MainActivity">
+        <activity
+            android:name=".scenes.main.MainActivity"
+            android:theme="@style/Theme.MyCitiesWeather.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".scenes.addCities.AddCitiesActivity" />
-        <activity android:name=".scenes.myCities.MyCitiesActivity" />
+        <activity
+            android:name=".scenes.addCities.AddCitiesActivity"
+            android:theme="@style/Theme.MyCitiesWeather.NoActionBar" />
         <activity
             android:name=".scenes.cityWeather.CityWeatherActivity"
             android:theme="@style/Theme.MyCitiesWeather.NoActionBar" />
