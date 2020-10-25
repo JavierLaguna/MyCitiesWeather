@@ -1,12 +1,18 @@
 package com.lagunadev.mycitiesweather.scenes.weatherList
 
+import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.WeatherItem
 import com.lagunadev.mycitiesweather.utils.inflate
 import kotlinx.android.synthetic.main.item_weather.view.*
+import kotlinx.android.synthetic.main.item_weather.view.labelAirPreassure
+import kotlinx.android.synthetic.main.item_weather.view.labelHumidity
+import kotlinx.android.synthetic.main.item_weather.view.labelTemp
+import kotlinx.android.synthetic.main.item_weather.view.labelWind
 import java.text.SimpleDateFormat
 
 
@@ -14,11 +20,15 @@ class WeatherListAdapter() : RecyclerView.Adapter<WeatherListAdapter.WeatherItem
 
     private val weatherList = mutableListOf<WeatherItem>()
 
-    class WeatherItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class WeatherItemHolder(itemView: View, context: Context) : RecyclerView.ViewHolder(itemView) {
+        private val glide = Glide.with(context)
         var weatherItem: WeatherItem? = null
             set(value) {
                 field = value
                 itemView.tag = field
+
+                glide.load("https://www.metaweather.com/static/img/weather/ico/${value?.weatherStateAbbr}.ico")
+                    .into(itemView.imgState)
 
                 val format = SimpleDateFormat("yyyy-MM-dd")
                 val dateFormat = SimpleDateFormat("EEEE")
@@ -44,7 +54,7 @@ class WeatherListAdapter() : RecyclerView.Adapter<WeatherListAdapter.WeatherItem
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherItemHolder {
         val view = parent.inflate(R.layout.item_weather)
-        return WeatherItemHolder(view)
+        return WeatherItemHolder(view, parent.context)
     }
 
     override fun onBindViewHolder(holder: WeatherItemHolder, position: Int) {
