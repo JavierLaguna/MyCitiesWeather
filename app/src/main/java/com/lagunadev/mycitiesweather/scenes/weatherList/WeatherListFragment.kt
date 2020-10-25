@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.lagunadev.mycitiesweather.R
-import com.lagunadev.mycitiesweather.models.WeatherItem
 import kotlinx.android.synthetic.main.fragment_weather_list.*
 
 
@@ -38,7 +37,7 @@ class WeatherListFragment : Fragment() {
         weatherList.adapter = weatherAdapter
     }
 
-    fun setWeather(weatherList: List<WeatherItem>) {
+    fun setWeather(weatherList: List<WeatherItemViewModel>) {
         weatherAdapter.setWeather(weatherList)
     }
 }

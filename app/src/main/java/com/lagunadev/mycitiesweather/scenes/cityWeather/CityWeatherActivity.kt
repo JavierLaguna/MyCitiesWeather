@@ -10,12 +10,11 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
-import com.lagunadev.mycitiesweather.models.WeatherItem
+import com.lagunadev.mycitiesweather.scenes.weatherList.WeatherItemViewModel
 import com.lagunadev.mycitiesweather.scenes.weatherList.WeatherListFragment
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_city_weather.*
 import kotlinx.android.synthetic.main.dialog_loading.view.*
-import java.text.SimpleDateFormat
 
 class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
@@ -88,36 +87,36 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
     }
 
     private fun customizeLoading() {
-        viewLoading.labelLoadingMessage.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
+        viewLoading.labelLoadingMessage.setTextColor(
+            ContextCompat.getColor(
+                applicationContext,
+                R.color.white
+            )
+        )
     }
 
     // CityWeatherViewModelDelegate
-    override fun updateTodayWeather(weather: WeatherItem) {
+    override fun updateTodayWeather(todayWeather: TodayWeatherViewModel) {
         val resourceId: Int = resources.getIdentifier(
-            "background_${weather.weatherStateAbbr}", "drawable", packageName
+            todayWeather.stateAbbrUrl, "drawable", packageName
         )
 
         Glide.with(applicationContext).load(resourceId).into(imageCurrentWeather)
 
-        with(weather) {
-            labelTemp.text = "${"%.1f".format(theTemp)}º"
-            labelState.text = weather.weatherStateName
-
-            val format = SimpleDateFormat("yyyy-MM-dd")
-            val dateFormat = SimpleDateFormat("EEEE, d MMM yyyy")
-            val date = format.parse(applicableDate)
-            labelDate.text = dateFormat.format(date).capitalize()
-
-            labelWind.text = "${"%.2f".format(windSpeed)} mph"
-            labelAirPreassure.text = "$airPressure mbar"
-            labelHumidity.text = "$humidity %"
-            labelTempMin.text = "${"%.1f".format(minTemp)}º"
-            labelTempMax.text = "${"%.1f".format(maxTemp)}º"
+        with(todayWeather) {
+            labelTemp.text = tempFormatted
+            labelState.text = state
+            labelDate.text = dateFormatted
+            labelWind.text = windSpeedFormatted
+            labelAirPreassure.text = airPressureFormatted
+            labelHumidity.text = humidityFormatted
+            labelTempMin.text = minTempFormatted
+            labelTempMax.text = maxTempFormatted
         }
     }
 
-    override fun updateNextDaysWeather(weathers: List<WeatherItem>) {
-        weatherListFragment.setWeather(weathers)
+    override fun updateNextDaysWeather(nextDaysWeather: List<WeatherItemViewModel>) {
+        weatherListFragment.setWeather(nextDaysWeather)
     }
 
     override fun showError() {

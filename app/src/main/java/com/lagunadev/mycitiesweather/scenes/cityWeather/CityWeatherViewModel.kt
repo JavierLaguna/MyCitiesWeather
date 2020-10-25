@@ -7,11 +7,11 @@ import androidx.lifecycle.ViewModel
 import com.lagunadev.mycitiesweather.models.City
 import com.lagunadev.mycitiesweather.models.CityWeather
 import com.lagunadev.mycitiesweather.models.CityWeatherResponse
-import com.lagunadev.mycitiesweather.models.WeatherItem
 import com.lagunadev.mycitiesweather.repository.GetWeatherRepository
 import com.lagunadev.mycitiesweather.repository.db.CitiesWeatherRoomDatabase
 import com.lagunadev.mycitiesweather.repository.services.GetWeatherServiceImpl
 import com.lagunadev.mycitiesweather.repository.services.MetaweatherService
+import com.lagunadev.mycitiesweather.scenes.weatherList.WeatherItemViewModel
 import com.lagunadev.mycitiesweather.utils.ifLet
 import retrofit2.Response
 
@@ -23,12 +23,12 @@ class CityWeatherViewModel(context: Application, private val owner: LifecycleOwn
         CitiesWeatherRoomDatabase.getInstance(context).citiesWeatherDao()
 
     private lateinit var city: City
-    private var todayWeather: WeatherItem? = null
+    private var todayWeather: TodayWeatherViewModel? = null
         set(value) {
             field = value
             value?.let { delegate?.updateTodayWeather(it) }
         }
-    private var nextDaysWeather: List<WeatherItem>? = null
+    private var nextDaysWeather: List<WeatherItemViewModel>? = null
         set(value) {
             field = value
             value?.let { delegate?.updateNextDaysWeather(it) }
@@ -53,8 +53,9 @@ class CityWeatherViewModel(context: Application, private val owner: LifecycleOwn
             myCitiesWeatherRepository.getCityWeatherOf(cityId)
                 .observe(owner, Observer { cityWeather ->
                     if (cityWeather != null) {
-                        todayWeather = cityWeather.todayWeather
-                        nextDaysWeather = cityWeather.nextDaysWeather
+                        todayWeather = TodayWeatherViewModel(cityWeather.todayWeather)
+                        nextDaysWeather =
+                            cityWeather.nextDaysWeather.map { WeatherItemViewModel(it) }
                     } else {
                         isLoading = true
                     }
