@@ -106,7 +106,7 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
             val format = SimpleDateFormat("yyyy-MM-dd")
             val dateFormat = SimpleDateFormat("EEEE, d MMM yyyy")
             val date = format.parse(applicableDate)
-            labelDate.text = dateFormat.format(date)
+            labelDate.text = dateFormat.format(date).capitalize()
 
             labelWind.text = "${"%.2f".format(windSpeed)} mph"
             labelAirPreassure.text = "$airPressure mbar"

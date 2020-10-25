@@ -35,7 +35,7 @@ class WeatherListAdapter() : RecyclerView.Adapter<WeatherListAdapter.WeatherItem
                     val format = SimpleDateFormat("yyyy-MM-dd")
                     val dateFormat = SimpleDateFormat("EEEE")
                     val date = format.parse(value.applicableDate)
-                    itemView.labelDay.text = dateFormat.format(date)
+                    itemView.labelDay.text = dateFormat.format(date).capitalize()
 
                     itemView.labelTemp.text = "${"%.1f".format(value.theTemp)}º"
                     itemView.labelWind.text = "${"%.2f".format(value.windSpeed)} mph"
