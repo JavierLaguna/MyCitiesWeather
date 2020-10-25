@@ -80,7 +80,20 @@
                     android:textStyle="bold"
                     tools:text="Sat, 24 Oct 2020" />
 
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp">
+
+                    <include
+                        android:id="@+id/viewLoading"
+                        layout="@layout/dialog_loading"
+                        android:visibility="gone" />
+                </FrameLayout>
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/detailsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"

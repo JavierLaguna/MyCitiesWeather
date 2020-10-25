@@ -14,4 +14,5 @@
     <string name="weather_temp_max">Temp Max</string>
     <string name="weather_next_days">Pronóstico siguientes 6 días</string>
     <string name="error_default">Ups! Algo ha ido mal, prueba de nuevo en unos segundos.</string>
+    <string name="label_loading">Cargando...</string>
 </resources>

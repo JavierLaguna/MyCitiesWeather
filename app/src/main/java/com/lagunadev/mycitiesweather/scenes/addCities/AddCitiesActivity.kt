@@ -1,17 +1,17 @@
 package com.lagunadev.mycitiesweather.scenes.addCities
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.City
-import com.lagunadev.mycitiesweather.scenes.main.MainActivity
-import com.lagunadev.mycitiesweather.scenes.noCities.NoCitiesFragment
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_add_cities.*
+import kotlinx.android.synthetic.main.activity_add_cities.container
+import kotlinx.android.synthetic.main.activity_add_cities.viewLoading
 
 class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCityItemDelegate {
 
@@ -56,6 +56,18 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCi
         })
     }
 
+    private fun showLoading(active: Boolean = true) {
+        if (active) {
+            viewLoading.visibility = View.VISIBLE
+
+            listCities.visibility = View.GONE
+        } else {
+            viewLoading.visibility = View.GONE
+
+            listCities.visibility = View.VISIBLE
+        }
+    }
+
     // AddCitiesViewModelDelegate
     override fun onUpdateCities(cities: List<City>) {
         citiesAdapter.setCities(cities)
@@ -67,6 +79,10 @@ class AddCitiesActivity : AppCompatActivity(), AddCitiesViewModelDelegate, AddCi
 
     override fun showError() {
         Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun updateLoadingState(isLoading: Boolean) {
+        showLoading(isLoading)
     }
 
     // AddCityItemDelegate

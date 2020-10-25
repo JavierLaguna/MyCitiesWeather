@@ -6,4 +6,5 @@ interface AddCitiesViewModelDelegate {
     fun onUpdateCities(cities: List<City>)
     fun cityDidAdded()
     fun showError()
+    fun updateLoadingState(isLoading: Boolean)
 }

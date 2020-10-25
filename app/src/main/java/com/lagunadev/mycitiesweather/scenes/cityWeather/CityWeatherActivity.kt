@@ -1,9 +1,10 @@
 package com.lagunadev.mycitiesweather.scenes.cityWeather
 
-import android.content.res.Resources
 import android.os.Bundle
+import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +14,7 @@ import com.lagunadev.mycitiesweather.models.WeatherItem
 import com.lagunadev.mycitiesweather.scenes.weatherList.WeatherListFragment
 import com.lagunadev.mycitiesweather.utils.CustomViewModelFactory
 import kotlinx.android.synthetic.main.activity_city_weather.*
+import kotlinx.android.synthetic.main.dialog_loading.view.*
 import java.text.SimpleDateFormat
 
 class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
@@ -35,6 +37,7 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
         getIntentArguments()
         addListWeathers()
         setListeners()
+        customizeLoading()
     }
 
     private fun initialize() {
@@ -72,6 +75,22 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
         buttonRefresh.setOnClickListener { viewModel.getCityWeather(city) }
     }
 
+    private fun showLoading(active: Boolean = true) {
+        if (active) {
+            viewLoading.visibility = View.VISIBLE
+
+            detailsContainer.visibility = View.GONE
+        } else {
+            viewLoading.visibility = View.GONE
+
+            detailsContainer.visibility = View.VISIBLE
+        }
+    }
+
+    private fun customizeLoading() {
+        viewLoading.labelLoadingMessage.setTextColor(ContextCompat.getColor(applicationContext, R.color.white))
+    }
+
     // CityWeatherViewModelDelegate
     override fun updateTodayWeather(weather: WeatherItem) {
         val resourceId: Int = resources.getIdentifier(
@@ -103,5 +122,9 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
 
     override fun showError() {
         Snackbar.make(container, R.string.error_default, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun updateLoadingState(isLoading: Boolean) {
+        showLoading(isLoading)
     }
 }

@@ -32,6 +32,11 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
             field = value
             value?.let { delegate?.updateNextDaysWeather(it) }
         }
+    private var isLoading = false
+        set(value) {
+            field = value
+            delegate?.updateLoadingState(value)
+        }
 
     var delegate: CityWeatherViewModelDelegate? = null
 
@@ -41,7 +46,7 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
     }
 
     private fun listenCityWeather() {
-        getCityWeather(city)
+        getCityWeather(city, false)
 
         city.id?.let { cityId ->
             myCitiesWeatherRepository.getCityWeatherOf(cityId)
@@ -49,6 +54,8 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                     if (cityWeather != null) {
                         todayWeather = cityWeather.todayWeather
                         nextDaysWeather = cityWeather.nextDaysWeather
+                    } else {
+                        isLoading = true
                     }
                 })
         }
@@ -69,7 +76,10 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
         }
     }
 
-    fun getCityWeather(city: City) {
+    fun getCityWeather(city: City, updateLoading: Boolean = true) {
+        if (updateLoading) {
+            isLoading = true
+        }
 
         city.id?.let { cityId ->
             weatherRepository.getWeatherOf(
@@ -78,10 +88,12 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
 
                     override fun onResponse(response: CityWeatherResponse) {
                         saveCityWeather(response)
+                        isLoading = false
                     }
 
                     override fun onFailure(t: Throwable, res: Response<*>?) {
                         delegate?.showError()
+                        isLoading = false
                     }
                 })
         }

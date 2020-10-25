@@ -18,20 +18,29 @@ class AddCitiesViewModel(private val context: Application) : ViewModel() {
             field = value
             delegate?.onUpdateCities(cities)
         }
+    private var isLoading = false
+        set(value) {
+            field = value
+            delegate?.updateLoadingState(value)
+        }
 
     var delegate: AddCitiesViewModelDelegate? = null
 
     fun getCities(name: String) {
+        isLoading = true
+
         citiesRepository.getCities(
             name,
             object : MetaweatherService.CallbackResponse<List<City>> {
 
                 override fun onResponse(response: List<City>) {
                     cities = response
+                    isLoading = false
                 }
 
                 override fun onFailure(t: Throwable, res: Response<*>?) {
                     delegate?.showError()
+                    isLoading = false
                 }
             })
     }
