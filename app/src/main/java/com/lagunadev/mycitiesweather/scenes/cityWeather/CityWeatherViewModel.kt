@@ -12,9 +12,10 @@ import com.lagunadev.mycitiesweather.repository.GetWeatherRepository
 import com.lagunadev.mycitiesweather.repository.db.CitiesWeatherRoomDatabase
 import com.lagunadev.mycitiesweather.repository.services.GetWeatherServiceImpl
 import com.lagunadev.mycitiesweather.repository.services.MetaweatherService
+import com.lagunadev.mycitiesweather.utils.ifLet
 import retrofit2.Response
 
-class CityWeatherViewModel(private val context: Application, private val owner: LifecycleOwner) :
+class CityWeatherViewModel(context: Application, private val owner: LifecycleOwner) :
     ViewModel() {
 
     private val weatherRepository: GetWeatherRepository = GetWeatherServiceImpl()
@@ -62,17 +63,16 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
     }
 
     private fun saveCityWeather(cityWeatherResponse: CityWeatherResponse) {
-        cityWeatherResponse.consolidatedWeather?.first()?.let { todayWeather ->
-            val nextDaysWeather =
-                cityWeatherResponse.consolidatedWeather.filter { it?.id !== todayWeather.id }
-                    .filterNotNull()
+        val cityId = city.id
+        val todayWeather = cityWeatherResponse.consolidatedWeather?.first()
+        val nextDaysWeather = cityWeatherResponse.consolidatedWeather
+            ?.filterNotNull()
+            ?.filter { it.id !== todayWeather?.id }
 
-            city.id?.let { cityId ->
-                nextDaysWeather.let { nextDaysWeather ->
-                    val cityWeather = CityWeather(cityId, todayWeather, nextDaysWeather)
-                    myCitiesWeatherRepository.insertCityWeather(cityWeather)
-                }
-            }
+
+        ifLet(cityId, todayWeather, nextDaysWeather) {
+            val cityWeather = CityWeather(cityId!!, todayWeather!!, nextDaysWeather!!)
+            myCitiesWeatherRepository.insertCityWeather(cityWeather)
         }
     }
 
