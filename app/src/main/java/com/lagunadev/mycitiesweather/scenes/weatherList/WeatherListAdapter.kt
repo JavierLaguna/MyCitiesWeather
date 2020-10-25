@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.lagunadev.mycitiesweather.BuildConfig
 import com.lagunadev.mycitiesweather.R
 import com.lagunadev.mycitiesweather.models.WeatherItem
 import com.lagunadev.mycitiesweather.utils.inflate
@@ -27,18 +28,20 @@ class WeatherListAdapter() : RecyclerView.Adapter<WeatherListAdapter.WeatherItem
                 field = value
                 itemView.tag = field
 
-                glide.load("https://www.metaweather.com/static/img/weather/ico/${value?.weatherStateAbbr}.ico")
-                    .into(itemView.imgState)
+                value?.let {
+                    glide.load("${BuildConfig.WeatherApiDomain}static/img/weather/ico/${value.weatherStateAbbr}.ico")
+                        .into(itemView.imgState)
 
-                val format = SimpleDateFormat("yyyy-MM-dd")
-                val dateFormat = SimpleDateFormat("EEEE")
-                val date = format.parse(value?.applicableDate)
-                itemView.labelDay.text = dateFormat.format(date)
+                    val format = SimpleDateFormat("yyyy-MM-dd")
+                    val dateFormat = SimpleDateFormat("EEEE")
+                    val date = format.parse(value.applicableDate)
+                    itemView.labelDay.text = dateFormat.format(date)
 
-                itemView.labelTemp.text = "${"%.1f".format(value?.theTemp)}º"
-                itemView.labelWind.text = "${"%.2f".format(value?.windSpeed)} mph"
-                itemView.labelAirPreassure.text = "${value?.airPressure} mbar"
-                itemView.labelHumidity.text = "${value?.humidity} %"
+                    itemView.labelTemp.text = "${"%.1f".format(value.theTemp)}º"
+                    itemView.labelWind.text = "${"%.2f".format(value.windSpeed)} mph"
+                    itemView.labelAirPreassure.text = "${value.airPressure} mbar"
+                    itemView.labelHumidity.text = "${value.humidity} %"
+                }
             }
     }
 

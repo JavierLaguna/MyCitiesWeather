@@ -16,6 +16,8 @@
 
         <activity
             android:name=".scenes.main.MainActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyCitiesWeather.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,9 +27,13 @@
         </activity>
         <activity
             android:name=".scenes.addCities.AddCitiesActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyCitiesWeather.NoActionBar" />
         <activity
             android:name=".scenes.cityWeather.CityWeatherActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MyCitiesWeather.NoActionBar" />
 
     </application>
