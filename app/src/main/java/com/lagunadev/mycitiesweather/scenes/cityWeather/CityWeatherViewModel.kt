@@ -41,7 +41,7 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
     }
 
     private fun listenCityWeather() {
-//        getCityWeather(city) TODO
+        getCityWeather(city)
 
         city.id?.let { cityId ->
             myCitiesWeatherRepository.getCityWeatherOf(cityId)
@@ -49,24 +49,6 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                     if (cityWeather != null) {
                         todayWeather = cityWeather.todayWeather
                         nextDaysWeather = cityWeather.nextDaysWeather
-                    }
-                })
-        }
-    }
-
-    private fun getCityWeather(city: City) {
-
-        city.id?.let { cityId ->
-            weatherRepository.getWeatherOf(
-                cityId,
-                object : MetaweatherService.CallbackResponse<CityWeatherResponse> {
-
-                    override fun onResponse(response: CityWeatherResponse) {
-                        saveCityWeather(response)
-                    }
-
-                    override fun onFailure(t: Throwable, res: Response<*>?) {
-                        TODO("Not yet implemented")
                     }
                 })
         }
@@ -84,6 +66,24 @@ class CityWeatherViewModel(private val context: Application, private val owner: 
                     myCitiesWeatherRepository.insertCityWeather(cityWeather)
                 }
             }
+        }
+    }
+
+    fun getCityWeather(city: City) {
+
+        city.id?.let { cityId ->
+            weatherRepository.getWeatherOf(
+                cityId,
+                object : MetaweatherService.CallbackResponse<CityWeatherResponse> {
+
+                    override fun onResponse(response: CityWeatherResponse) {
+                        saveCityWeather(response)
+                    }
+
+                    override fun onFailure(t: Throwable, res: Response<*>?) {
+                        TODO("Not yet implemented")
+                    }
+                })
         }
     }
 }

@@ -32,6 +32,7 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
         initialize()
         getIntentArguments()
         addListWeathers()
+        setListeners()
     }
 
     private fun initialize() {
@@ -63,6 +64,10 @@ class CityWeatherActivity : AppCompatActivity(), CityWeatherViewModelDelegate {
         supportFragmentManager.beginTransaction()
             .replace(R.id.weatherListContainer, weatherListFragment)
             .commitNow()
+    }
+
+    private fun setListeners() {
+        buttonRefresh.setOnClickListener { viewModel.getCityWeather(city) }
     }
 
     // CityWeatherViewModelDelegate
